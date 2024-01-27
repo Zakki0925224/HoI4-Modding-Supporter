@@ -68,19 +68,19 @@ namespace HoI4_Modding_Supporter.Forms
                 return;
             }
 
-            // HoI4本体ディレクトリが本当に合っているか（commonディレクトリとgfxディレクトリとhoi4.exeの存在確認）
-            if (Directory.Exists(textBox1.Text + @"\common") == true && Directory.Exists(textBox1.Text + @"\gfx") == true && File.Exists(textBox1.Text + @"\hoi4.exe") == true)
-            {
-                Properties.Settings.Default.hoi4dir = textBox1.Text;
-                Properties.Settings.Default.moddir = textBox2.Text;
-                Properties.Settings.Default.afterOpenFolder = checkBox1.Checked;
-                Properties.Settings.Default.Save();
-            }
-            else
-            {
-                InternalController.ErrorMessageShow("HoI4本体のディレクトリが間違っています。正しいディレクトリを選択してください。");
-                return;
-            }
+    // HoI4本体ディレクトリが本当に合っているか（commonディレクトリとgfxディレクトリとhoi4.exeまたはhoi4フォルダの存在確認）
+    if (Directory.Exists(textBox1.Text + @"\common") == true && Directory.Exists(textBox1.Text + @"\gfx") == true && (File.Exists(textBox1.Text + @"\hoi4.exe") == true || Directory.Exists(textBox1.Text + @"\hoi4")))
+    {
+        Properties.Settings.Default.hoi4dir = textBox1.Text;
+        Properties.Settings.Default.moddir = textBox2.Text;
+        Properties.Settings.Default.afterOpenFolder = checkBox1.Checked;
+        Properties.Settings.Default.Save();
+    }
+    else
+    {
+        InternalController.ErrorMessageShow("HoI4本体のディレクトリが間違っています。正しいディレクトリを選択してください。");
+        return;
+    }
 
             if (checkBox2.Checked == true && checkBox3.Checked == true && checkBox4.Checked == true && checkBox5.Checked == true)
             {  
